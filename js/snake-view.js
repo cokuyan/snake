@@ -9,6 +9,7 @@
     this.setup();
     this.bindKeys();
     this.ticks = 0;
+    this.renderingMove = false;
     setInterval(this.step.bind(this), 125);
   };
 
@@ -42,7 +43,7 @@
 
     // render apples
     for (var i = 0; i < this.board.apples.length; i++) {
-      var id = this.board.apples[i]; //how did you forget this line?
+      var id = this.board.apples[i];
       $(lis[id]).addClass("apple");
     }
 
@@ -62,9 +63,13 @@
   View.prototype.bindKeys = function(){
     var view = this;
     $(window).on("keydown", function (event) {
+      if (view.renderingMove) {
+        return;
+      }
       event.preventDefault();
 
       if (event.which >= 37 && event.which <= 40) {
+        view.renderingMove = true;
         var dir = View.KEY_MAPPINGS[event.which];
         view.board.snake.turn(dir);
       }
@@ -73,12 +78,7 @@
 
   View.prototype.step = function () {
     this.board.snake.move(this.board.hasEatenApple());
-    // if (this.board.hasEatenApple()) {
-    //   this.board.snake.move(true);
-    // } else {
-    //   this.board.snake.move();
-    // }
-
+    this.renderingMove = false
     // move snake dead to snake class?
     if (this.board.isSnakeDead()){
       alert("You DIE!!!");
