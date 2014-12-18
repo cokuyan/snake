@@ -64,7 +64,7 @@
     $(window).on("keydown", function (event) {
       event.preventDefault();
 
-      if (event.which >= 37 && event.which <= 40) {
+      if (View.KEY_MAPPTINGS[event.which]) {
         var dir = View.KEY_MAPPINGS[event.which];
         view.board.snake.turn(dir);
       }
@@ -73,13 +73,7 @@
 
   View.prototype.step = function () {
     this.board.snake.move(this.board.hasEatenApple());
-    // if (this.board.hasEatenApple()) {
-    //   this.board.snake.move(true);
-    // } else {
-    //   this.board.snake.move();
-    // }
 
-    // move snake dead to snake class?
     if (this.board.isSnakeDead()){
       alert("You DIE!!!");
       location.reload();

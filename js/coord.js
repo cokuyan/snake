@@ -7,6 +7,8 @@
     this.pos = pos;
   }
 
+  // have it only add positions?
+  // move checks into snake move class since this shouldn't hold move logic
   Coord.prototype.plus = function(dir){
     result = this.pos.slice();
     switch (dir){
@@ -32,6 +34,7 @@
     return this.pos[0] * dimX + this.pos[1];
   }
 
+  // change to equals?
   Coord.prototype.isOverlapping = function (other) {
     return this.pos[0] === other.pos[0] && this.pos[1] === other.pos[1];
   }
