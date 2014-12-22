@@ -8,7 +8,7 @@
     this.dimX = dimX;
     this.dimY = dimY;
     this.snake = new SnakeSpace.Snake(this.generateStartingPos());
-    this.apples = [];
+    this.apples = []; // only have one apple at a time?
   }
 
   Board.prototype.generateStartingPos = function () {
@@ -33,11 +33,13 @@
     return pos[1] < 0 || pos[1] >= this.dimX || pos[0] < 0 || pos[0] >= this.dimY
   }
 
+  // move to snake class?
   Board.prototype.isSnakeDead = function (){
     return this.isOutOfBounds(this.snake.segments[this.snake.length() - 1]) ||
            this.isOverlapping();
   }
 
+  // only check head of snake?
   Board.prototype.isOverlapping = function () {
     for (var i = 0; i < this.snake.length(); i++) {
       for (var j = i + 1; j < this.snake.length(); j++) {
@@ -49,6 +51,7 @@
     return false;
   };
 
+  // move to snake class?
   Board.prototype.hasEatenApple = function () {
     for (var i = 0; i < this.apples.length; i++) {
       var square = this.apples[i];

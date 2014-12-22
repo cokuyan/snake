@@ -68,8 +68,7 @@
       }
       event.preventDefault();
 
-      if (event.which >= 37 && event.which <= 40) {
-        view.renderingMove = true;
+      if (View.KEY_MAPPTINGS[event.which]) {
         var dir = View.KEY_MAPPINGS[event.which];
         view.board.snake.turn(dir);
       }
