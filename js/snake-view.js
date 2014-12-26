@@ -77,6 +77,7 @@
     this.renderingMove = false
     // move snake dead to snake class?
     if (this.board.isSnakeDead()){
+      // need to find a better way to alert death...
       alert("You DIE!!!");
       location.reload();
     } else {

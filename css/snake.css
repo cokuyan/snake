@@ -1,12 +1,24 @@
-html, body, form, ul, li {
+html, body, figure, ul, li, h1 {
   padding: 0;
   border: 0;
   margin: 0;
+  font: inherit;
+  font-family: sans-serif;
 }
-
 
 ul {
   list-style: none;
+}
+
+#snake {
+  position: relative;
+  margin: auto;
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+  font-size: 60px;
 }
 
 .group:after {
@@ -16,6 +28,10 @@ ul {
 }
 
 .grid {
+  position: relative;
+  margin: auto;
+  border: 20px solid black;
+  border-radius: 20px;
   height: 960px;
   width: 960px;
   background: gray;
