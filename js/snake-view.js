@@ -37,40 +37,37 @@
   }
 
   View.prototype.render = function () {
-    $("li").removeClass("snake apple");
+    $("li.square").removeClass("snake apple");
     var snakeSegments = this.board.snake.segments;
-    var lis = $("li");
+    var squares = $("li.square");
 
-    // render apples
-    for (var i = 0; i < this.board.apples.length; i++) {
-      var id = this.board.apples[i];
-      $(lis[id]).addClass("apple");
+    // render or generate apple
+    if (this.board.apple) {
+      $(squares[this.board.apple]).addClass("apple");
+    } else {
+      this.board.generateApple();
     }
 
     // render snake segments
     for (var i = 0; i < snakeSegments.length; i++) {
       var id = snakeSegments[i].toSquare(View.DIM_X, View.DIM_Y);
-      $(lis[id]).addClass("snake");
+      $(squares[id]).addClass("snake");
     }
-
-    // check if apple should be generated
-    if (this.ticks % 20 === 0) {
-      this.board.generateApple();
-    }
-    this.ticks++;
-  }
+  };
 
   View.prototype.bindKeys = function(){
     var view = this;
     $(window).on("keydown", function (event) {
+      event.preventDefault();
+
       if (view.renderingMove) {
         return;
       }
-      event.preventDefault();
 
-      if (View.KEY_MAPPTINGS[event.which]) {
+      if (View.KEY_MAPPINGS[event.which]) {
         var dir = View.KEY_MAPPINGS[event.which];
         view.board.snake.turn(dir);
+        view.renderingMove = true;
       }
     });
   };

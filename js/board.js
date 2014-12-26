@@ -8,7 +8,6 @@
     this.dimX = dimX;
     this.dimY = dimY;
     this.snake = new SnakeSpace.Snake(this.generateStartingPos());
-    this.apples = []; // only have one apple at a time?
   }
 
   Board.prototype.generateStartingPos = function () {
@@ -19,13 +18,17 @@
   }
 
   Board.prototype.generateApple = function () {
-    lis = $("li");
+    if (this.apple) return;
+
+    // gets collection of all squares
+    squares = $("li.square");
+    // find an empty square to place the apple
     do {
       var appleSquare = Math.floor(Math.random() * this.dimX * this.dimY);
-    } while ($(lis[appleSquare]).hasClass("snake"));
-
-    $(lis[appleSquare]).addClass("apple");
-    this.apples.push(appleSquare);
+    } while ($(squares[appleSquare]).hasClass("snake"));
+    // set apple
+    $(squares[appleSquare]).addClass("apple");
+    this.apple = appleSquare;
   }
 
   Board.prototype.isOutOfBounds = function (coord) {
@@ -52,13 +55,11 @@
   };
 
   // move to snake class?
+  // check head only?
   Board.prototype.hasEatenApple = function () {
-    for (var i = 0; i < this.apples.length; i++) {
-      var square = this.apples[i];
-      if ( $($("li")[square]).hasClass("snake") ) {
-        this.apples.splice(i, 1);
-        return true;
-      }
+    if ( $($("li.square")[this.apple]).hasClass("snake") ) {
+      this.apple = null;
+      return true;
     }
     return false;
   };

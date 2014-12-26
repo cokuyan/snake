@@ -12,6 +12,7 @@
   // Snake.DIRS = ["N", "E", "S", "W"];
 
   Snake.prototype.move = function (grow) {
+    // console.log(grow)
     var pos = this.head().plus(this.dir);
     var new_head = new SnakeSpace.Coord(pos);
     this.segments.push(new_head);
